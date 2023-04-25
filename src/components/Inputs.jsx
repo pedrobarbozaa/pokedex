@@ -7,7 +7,7 @@ class Inputs extends React.Component {
   render() {
     const { handleSearch, searchInput, onChange } = this.props;
     return (
-      <form onSubmit={ handleSearch }>
+      <form className="search-container" onSubmit={ handleSearch }>
         <input type="search" name="searchInput" placeholder="Nome do Pokemon" onChange={ onChange } value={ searchInput }/>
         <button type="submit" >Pesquisar</button>
       </form>

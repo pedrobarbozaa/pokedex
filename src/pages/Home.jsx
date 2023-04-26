@@ -2,10 +2,11 @@ import React from "react";
 import "../components/style.css";
 import Card from '../components/Card'
 import Inputs from '../components/Inputs'
+import { fetchPoke } from "../services/apiRequests";
 
 class Home extends React.Component {
   state = {
-    data: '',
+    data: {},
     name: '',
     image: '',
     types: '',
@@ -17,14 +18,8 @@ class Home extends React.Component {
     this.populateState(Math.floor(Math.random() * 1010));
   }
   
-  fetchPoke = async (pokemon) => {
-    const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
-    const data = await result.json();
-    return data;
-  }
-  
   populateState = async (value) => {
-    const data = await this.fetchPoke(value)
+    const data = await fetchPoke(value)
     const types = data.types.map((each) => `${each.type.name.toUpperCase()} `)
     this.setState({
       data,
@@ -59,12 +54,11 @@ class Home extends React.Component {
   }
   
   render() {
-    const { name, loading, image, types, searchInput, savedCards } = this.state
+    const { name, loading, image, types, searchInput, savedCards, data } = this.state
     return (
       <>
-        <h1>Pokedex</h1>
         <Inputs onChange={this.onChange} handleSearch={this.handleSearch} searchInput={searchInput} />
-        { loading ? <p>Carregando...</p> : <Card className="card" save={this.saveCard} name={ name } image={ image } type={ types }/> }
+        { loading ? <p>Carregando...</p> : <Card className="card" save={this.saveCard} name={ name } image={ image } type={ types } cardId={ data.id } /> }
           <h3>Pokemons salvos</h3>
         <div className="cardList">
           { savedCards.map((card) => <Card className="savedCard" key={card.data.id} name={ card.name } image={ card.image } type={ card.types }/>  ) }

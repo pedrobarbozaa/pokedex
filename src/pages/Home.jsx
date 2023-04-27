@@ -10,7 +10,7 @@ class Home extends React.Component {
     name: '',
     image: '',
     types: '',
-    loading: true,
+    loading: false,
     searchInput: '',
     savedCards: [],
   }
@@ -18,7 +18,14 @@ class Home extends React.Component {
     this.populateState(Math.floor(Math.random() * 1010));
   }
   
+  handleLoading = (value) => {
+    this.setState({
+      loading: value,
+    })
+  }
+   
   populateState = async (value) => {
+    this.handleLoading(true);
     const data = await fetchPoke(value)
     const types = data.types.map((each) => `${each.type.name.toUpperCase()} `)
     this.setState({
@@ -27,6 +34,7 @@ class Home extends React.Component {
       image: data.sprites.front_default,
       types,
       loading: false,
+      savedCards: JSON.parse(localStorage.getItem('favorites')),
     })
   }
   
@@ -46,10 +54,14 @@ class Home extends React.Component {
   saveCard = () => {
     const { data, name, image, types, savedCards } = this.state;
     const savedObj = { data, name, image, types }
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    let favorites = storedFavorites || []
     savedCards.some((el) => el.data.id === savedObj.data.id) ? 
     alert(`${savedObj.name} já está salvo`):
+    favorites.push(savedObj);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
     this.setState({
-      savedCards: [...savedCards, savedObj]
+      savedCards: favorites,
     })
   }
   
@@ -58,7 +70,7 @@ class Home extends React.Component {
     return (
       <>
         <Inputs onChange={this.onChange} handleSearch={this.handleSearch} searchInput={searchInput} />
-        { loading ? <p>Carregando...</p> : 
+        { loading ? <p className="card">Carregando...</p> : 
         <div>
           <Card className="card" name={ name } image={ image } type={ types } cardId={ data.id } />
           <button type="button" onClick={ this.saveCard }>Favorito</button> 

@@ -1,6 +1,6 @@
 import React from "react";
 // import "./style.css";
-import { fetchPoke } from "../services/apiRequests"
+import { fetchDescription, fetchPoke } from "../services/apiRequests"
 
 class Details extends React.Component {
   state = {
@@ -9,6 +9,7 @@ class Details extends React.Component {
     name: '',
     image: '',
     types: [],
+    description: '',
   }
   
   componentDidMount() {
@@ -16,11 +17,20 @@ class Details extends React.Component {
     this.populateState(id);
   }
 
+  handleLoading = (value) => {
+    this.setState({
+      loading: value,
+    })
+  }
+
   populateState = async (id) => {
-    const data = await fetchPoke(id)
+    this.handleLoading(true);
+    const data = await fetchPoke(id);
+    const description = await fetchDescription(id);
     this.setState({
       data,
       name: data.name,
+      description: description.flavor_text_entries.find((el) => el.language.name === 'en')?.flavor_text,
       image: data.sprites.other["official-artwork"].front_default,
       type: data.types.map((el) => el.type.name),
       loading: false,
@@ -28,17 +38,23 @@ class Details extends React.Component {
   }
 
   render() {
-    const { loading, name, image, type, data } = this.state
+    const { loading, name, image, type, description } = this.state
 
     return (
-      <section>
-        <div>
+      <>
+      { loading ? <p>CARREGANDO</p> :
+      <section className="descriptionSection">
+        <div className="descriptionCard">
           <p className="name">{ name }</p>
           <img className="img" src={ image } alt={ `Imagem ${name}` } />
         </div>
-        { type?.map((el, i) => <p key={ i }>{ el }</p> ) }
-        <p>{data.description}</p>
+         <div className="descriptionInfo">
+          { type?.map((el, i) => <p key={ i }>{ el }</p> ) }
+          <p>{description}</p>
+        </div>
       </section>
+      }
+      </>
     )
   }
 }

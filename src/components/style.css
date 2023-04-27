@@ -34,8 +34,8 @@ h1 {
   margin: 2vw 0;
 }
 
-.card .image {
-  width: 50%;
+.card .img {
+  width: 100%;
   height: auto;
   margin: 2vw 0;
 }
@@ -70,8 +70,8 @@ h1 {
   margin: 0;
 }
 
-.card .image {
-  width: 30%;
+.card .img {
+  width: 100%;
   margin: 0 2vw;
 }
 
@@ -101,8 +101,8 @@ h1 {
   font-size: 2vw;
 }
 
-.card .image {
-  width: 20%;
+.card .img {
+  width: 100%;
   margin: 0 4vw;
 }
 

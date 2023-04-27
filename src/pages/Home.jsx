@@ -23,7 +23,7 @@ class Home extends React.Component {
     const types = data.types.map((each) => `${each.type.name.toUpperCase()} `)
     this.setState({
       data,
-      name: data.name.toUpperCase(),
+      name: data.species.name.toUpperCase(),
       image: data.sprites.front_default,
       types,
       loading: false,
@@ -58,10 +58,15 @@ class Home extends React.Component {
     return (
       <>
         <Inputs onChange={this.onChange} handleSearch={this.handleSearch} searchInput={searchInput} />
-        { loading ? <p>Carregando...</p> : <Card className="card" save={this.saveCard} name={ name } image={ image } type={ types } cardId={ data.id } /> }
-          <h3>Pokemons salvos</h3>
+        { loading ? <p>Carregando...</p> : 
+        <div>
+          <Card className="card" name={ name } image={ image } type={ types } cardId={ data.id } />
+          <button type="button" onClick={ this.saveCard }>Favorito</button> 
+        </div>
+        }
+          <h3>Favoritos</h3>
         <div className="cardList">
-          { savedCards.map((card) => <Card className="savedCard" key={card.data.id} name={ card.name } image={ card.image } type={ card.types }/>  ) }
+          { savedCards.map((card) => <Card className="savedCard" key={card.data.id} cardId={ card.data.id } name={ card.name } image={ card.image } type={ card.types }/>  ) }
         </div>
       </>
     )

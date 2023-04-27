@@ -1,0 +1,113 @@
+header {
+  background-color: #E53D35;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 4vw 2vw; /* adicionar um espaçamento interno relativo à largura da tela */
+}
+
+h1 {
+  margin: 0;
+  font-size: 6vw; /* definir o tamanho da fonte relativo à largura da tela */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 1px 1px #000000; /* adicionar um leve sombreamento sob o texto */
+}
+
+.card {
+  background-color: #FFFFFF;
+  color: #000000;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 4vw;
+  margin: 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .name {
+  font-size: 5vw;
+  font-weight: bold;
+  margin: 2vw 0;
+}
+
+.card .image {
+  width: 50%;
+  height: auto;
+  margin: 2vw 0;
+}
+
+.card .type {
+  font-size: 3vw;
+  text-transform: uppercase;
+  margin: 2vw 0;
+}
+
+
+@media screen and (min-width: 768px) {
+  /* definir tamanhos maiores para telas maiores */
+  header {
+    padding: 2vh;
+  }
+  
+  h1 {
+    font-size: 4vw;
+  }
+}
+
+.card {
+  padding: 2vh;
+  margin: 2vh;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card .name {
+  font-size: 3vw;
+  margin: 0;
+}
+
+.card .image {
+  width: 30%;
+  margin: 0 2vw;
+}
+
+.card .type {
+  font-size: 2vw;
+  margin: 0;
+}
+
+@media screen and (min-width: 1200px) {
+  /* definir tamanhos ainda maiores para telas ainda maiores */
+  header {
+    padding: 2vh 10vw;
+  }
+  
+  h1 {
+    font-size: 3vw;
+  }
+}
+
+.card {
+  padding: 2vh 20vw;
+  margin: 2vh 20vw;
+  justify-content: center;
+}
+
+.card .name {
+  font-size: 2vw;
+}
+
+.card .image {
+  width: 20%;
+  margin: 0 4vw;
+}
+
+.card .type {
+  font-size: 1.5vw;
+}
+
+

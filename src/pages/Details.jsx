@@ -28,16 +28,17 @@ class Details extends React.Component {
   }
 
   render() {
-    const { loading, name, image, type, data} = this.state
-    console.log(data.sprites);
+    const { loading, name, image, type, data } = this.state
 
     return (
-      <div>
-        <p className="name">{ name }</p>
-        <img className="img" src={ image } alt={ `Imagem ${name}` } />
-        <p className="type">{ type?.[0].toUpperCase() }</p>
-        <p className="type">{ type?.[1].toUpperCase() }</p>
-      </div>
+      <section>
+        <div>
+          <p className="name">{ name }</p>
+          <img className="img" src={ image } alt={ `Imagem ${name}` } />
+        </div>
+        { type?.map((el, i) => <p key={ i }>{ el }</p> ) }
+        <p>{data.description}</p>
+      </section>
     )
   }
 }

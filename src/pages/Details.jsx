@@ -1,6 +1,6 @@
 import React from "react";
 // import "./style.css";
-import { fetchDescription, fetchPoke } from "../services/apiRequests"
+import { fetchDescription, fetchEvolution, fetchPoke } from "../services/apiRequests"
 
 class Details extends React.Component {
   state = {
@@ -9,6 +9,7 @@ class Details extends React.Component {
     name: '',
     image: '',
     types: [],
+    evoChain: [],
     description: '',
   }
   
@@ -23,18 +24,26 @@ class Details extends React.Component {
     })
   }
 
+  // evolutions = () => {
+  //   evoChain.chain.evolves_to
+  // }
+
   populateState = async (id) => {
     this.handleLoading(true);
     const data = await fetchPoke(id);
     const description = await fetchDescription(id);
+    const evoData = await fetchEvolution(description.evolution_chain.url)
+    const evoChain = []
     this.setState({
       data,
       name: data.name,
       description: description.flavor_text_entries.find((el) => el.language.name === 'en')?.flavor_text,
       image: data.sprites.other["official-artwork"].front_default,
       type: data.types.map((el) => el.type.name),
+      // evoChain:
       loading: false,
     })
+    console.log(evoData.chain.evolves_to);
   }
 
   render() {

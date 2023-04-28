@@ -10,3 +10,8 @@ export const fetchDescription = async (id) => {
   return descriptionData;
 }
 
+export const fetchEvolution = async (url) => {
+  const result = await fetch(url);
+  const evoChain = await result.json();
+  return evoChain;
+}
